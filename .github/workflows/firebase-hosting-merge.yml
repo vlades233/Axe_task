@@ -17,7 +17,7 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_AXE_TASK }}'
           channelId: live
           projectId: axe-task
-  notify:
-    image: plugins/slack
-    webhook: '${{ secrets.SLACK_WEBHOOK }}'
-    channel: ci_cd
+      - name: slack
+    	  image: plugins/slack
+    	  webhook: '${{ secrets.SLACK_WEBHOOK }}'
+    	  channel: ci_cd
