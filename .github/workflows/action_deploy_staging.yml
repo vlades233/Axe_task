@@ -18,12 +18,6 @@ jobs:
           channelId: staging
           projectId: axe-task
 
-      - id: step2
-        run: echo ${{ steps.deploy_firebase.outputs.urls }}
-
-
-
-
   Slack:
     runs-on: ubuntu-latest
     needs: build_and_deploy
