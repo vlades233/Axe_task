@@ -18,7 +18,7 @@ jobs:
           projectId: axe-task
 
       - id: step2
-        run: echo "${{ steps.build_and_deploy.outputs}}"
+        run: echo ${{ steps.build_and_deploy.outputs}}
 
     outputs:
       url: ${{ steps.deploy_firebase.outputs.details_urls }}
