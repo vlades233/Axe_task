@@ -1,3 +1,9 @@
+name: Slack notif
+on:
+  push:
+    branches:
+     - production
+     - staging
 jobs:
   slackNotification:
     name: Slack Notification
