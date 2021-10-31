@@ -7,7 +7,7 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     outputs:
-      url: ${{ steps.deploy_firebase.outputs.urlss }}
+      url: ${{ steps.deploy_firebase.outputs.summary }}
     steps:
       - uses: actions/checkout@v2
       - uses: FirebaseExtended/action-hosting-deploy@v0
@@ -19,7 +19,7 @@ jobs:
           projectId: axe-task
 
       - id: step1
-        run: echo ${{ steps.deploy_firebase.outputs.urls }}
+        run: echo ${{ steps.deploy_firebase.outputs.title }}
 
 
   Slack:
