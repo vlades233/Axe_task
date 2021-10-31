@@ -26,7 +26,7 @@ jobs:
           {
             attachments: [{
               color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-              text: `Repo: ${process.env.AS_REPO} \\n Push: ${process.env.AS_AUTHOR} \\n URL: build_and_deploy.outputs.urls`,
+              text: `Repo: ${process.env.AS_REPO} \\n Push: ${process.env.AS_AUTHOR} \\n URL: ${{build_and_deploy.outputs.urls}}`,
             }]
           }
       env:
