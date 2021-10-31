@@ -15,6 +15,7 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_AXE_TASK }}'
           channelId: live
           projectId: axe-task
+          output: details_urls
 
       - id: step1
         run: echo ${{ steps.deploy_firebase.outputs.details_urls }}
