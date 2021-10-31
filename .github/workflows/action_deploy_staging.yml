@@ -1,0 +1,45 @@
+name: Deploy to Firebase Hosting on merge
+'on':
+  push:
+    branches:
+      - staging
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    outputs:
+      url: ${{ steps.deploy_firebase.outputs.details_url }}
+    steps:
+      - uses: actions/checkout@v2
+      - id: deploy_firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_AXE_TASK }}'
+          channelId: staging
+          projectId: axe-task
+
+      - id: step2
+        run: echo ${{ steps.deploy_firebase.outputs.urls }}
+
+
+
+
+  Slack:
+    runs-on: ubuntu-latest
+    needs: build_and_deploy
+    steps:
+    - uses: 8398a7/action-slack@v3
+      with:
+        status: custom
+        fields: repo,message, author
+        custom_payload: |
+          {
+            attachments: [{
+              color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
+              text: `Repo: ${process.env.AS_REPO} \n Push: ${process.env.AS_AUTHOR} \n URL: ${{needs.build_and_deploy.outputs.url}}`,
+            }]
+          }
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      if: always()
+
