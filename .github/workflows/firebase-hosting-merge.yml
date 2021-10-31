@@ -28,7 +28,7 @@ jobs:
           {
             attachments: [{
               color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-              text: `Repo: ${process.env.AS_REPO} \n Push: ${process.env.AS_AUTHOR} \n URL: ${{steps.deploy_firebase.outputs.details_url}}`,
+              text: `Repo: ${{ process.env.AS_REPO }} \n Push: ${{ process.env.AS_AUTHOR }} \n URL: ${{ steps.deploy_firebase.outputs.details_url }}`,
             }]
           }
       env:
