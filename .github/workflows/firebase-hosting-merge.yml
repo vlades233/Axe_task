@@ -11,15 +11,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - id: deploy_firebase
-        uses: FirebaseExtended/action-hosting-deploy@Alpha
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_AXE_TASK }}'
-          channelId: live
+          channelId: preprod
           projectId: axe-task
 
       - id: step2
-        run: echo ${{ fromJson(steps.deploy_firebase.outputs)}}
+        run: echo ${{ steps.deploy_firebase.outputs.urls }}
 
 
 
