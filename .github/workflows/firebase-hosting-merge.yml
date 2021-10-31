@@ -6,10 +6,12 @@ name: Deploy to Firebase Hosting on merge
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+    outputs:
+      url: ${{ steps.deploy_firebase.outputs.details_url }}
     steps:
+      - id: deploy_firebase
       - uses: actions/checkout@v2
       - name: Deploy to Firebase Hosting Channel
-        id: deploy_firebase
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
@@ -18,10 +20,9 @@ jobs:
           projectId: axe-task
 
       - id: step2
-        run: echo ${{ steps.deploy_firebase.outputs}}
+        run: echo ${{ steps.deploy_firebase.outputs.}}
 
-    outputs:
-      url: ${{ steps.deploy_firebase.outputs.details_urls }}
+
 
 
   Slack:
@@ -36,7 +37,7 @@ jobs:
           {
             attachments: [{
               color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-              text: `Repo: ${process.env.AS_REPO} \n Push: ${process.env.AS_AUTHOR} \n URL: '${{needs.build_and_deploy.outputs.details_urls}}'`,
+              text: `Repo: ${process.env.AS_REPO} \n Push: ${process.env.AS_AUTHOR} \n URL: ${{needs.build_and_deploy.outputs.details_url}}`,
             }]
           }
       env:
