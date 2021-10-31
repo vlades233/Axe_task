@@ -16,6 +16,7 @@ jobs:
           projectId: axe-task
 
       - name: slack
+      - uses: actions/checkout@v2
         image: plugins/slack
         webhook: '${{ secrets.SLACK_WEBHOOK }}'
         channel: ci_cd
