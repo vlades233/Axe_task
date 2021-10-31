@@ -21,7 +21,7 @@ jobs:
     - uses: 8398a7/action-slack@v3
       with:
         status: custom
-        fields: repo,message # selectable (default: repo,message)
+        fields: repo,message, author # selectable (default: repo,message)
         custom_payload: |
           {
             attachments: [{
