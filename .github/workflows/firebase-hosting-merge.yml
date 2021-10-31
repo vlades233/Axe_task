@@ -7,6 +7,7 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: deploy
       - uses: actions/checkout@v2
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -16,7 +17,6 @@ jobs:
           projectId: axe-task
 
       - name: slack
-      - uses: actions/checkout@v2
         image: plugins/slack
         webhook: '${{ secrets.SLACK_WEBHOOK }}'
         channel: ci_cd
