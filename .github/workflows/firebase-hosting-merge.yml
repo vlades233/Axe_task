@@ -8,17 +8,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Deploy to Firebase Hosting Channel
         id: deploy_firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_AXE_TASK }}'
           channelId: live
           projectId: axe-task
 
+      - id: step2
+        run: echo "${{ steps.build_and_deploy.outputs}}"
 
     outputs:
-      url: ${{ steps.deploy_firebase.output.details_urls }}
+      url: ${{ steps.deploy_firebase.outputs.details_urls }}
 
 
   Slack:
@@ -33,7 +36,7 @@ jobs:
           {
             attachments: [{
               color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-              text: `Repo: ${process.env.AS_REPO} \n Push: ${process.env.AS_AUTHOR} \n URL: ${{needs.build_and_deploy.outputs.url}}`,
+              text: `Repo: ${process.env.AS_REPO} \n Push: ${process.env.AS_AUTHOR} \n URL: ${{needs.build_and_deploy.outputs}}`,
             }]
           }
       env:
