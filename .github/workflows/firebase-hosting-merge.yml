@@ -9,9 +9,8 @@ jobs:
     outputs:
       url: ${{ steps.deploy_firebase.outputs.details_url }}
     steps:
-      - id: deploy_firebase
       - uses: actions/checkout@v2
-      - name: Deploy to Firebase Hosting Channel
+      - id: deploy_firebase
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
