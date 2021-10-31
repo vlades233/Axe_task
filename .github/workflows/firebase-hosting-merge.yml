@@ -15,6 +15,8 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_AXE_TASK }}'
           channelId: live
           projectId: axe-task
+    outputs:
+      url: ${{ steps.deploy_firebase.outputs.urls }}
 
   Slack:
     runs-on: ubuntu-latest
@@ -28,7 +30,7 @@ jobs:
           {
             attachments: [{
               color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-              text: `Repo: ${process.env.AS_REPO} \n Push: ${process.env.AS_AUTHOR} \n URL: ${steps.deploy_firebase.outputs.details_url}`,
+              text: `Repo: ${process.env.AS_REPO} \n Push: ${process.env.AS_AUTHOR} \n URL: ${{needs.build_and_deploy.outputs.url}}`,
             }]
           }
       env:
