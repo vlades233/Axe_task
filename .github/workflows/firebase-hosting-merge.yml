@@ -19,5 +19,5 @@ jobs:
           projectId: axe-task
   notify:
     image: plugins/slack
-    webhook_url: '${{ secrets.SLACK_WEBHOOK }}'
+    webhook: '${{ secrets.SLACK_WEBHOOK }}'
     channel: ci_cd
